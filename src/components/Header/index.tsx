@@ -40,11 +40,11 @@ export default function Header() {
         <>
             <section className="bg-purple-800">
                 <div className="min-w-[930px] max-w-5xl mx-auto">
-                    <div className="flex justify-between items-center h-20 ">
+                    <div className="flex justify-between items-center h-20 pr-6 pl-6">
                         <div className="flex-shrink-0">
                             <img src="//static.netshoes.com.br/2.89.9/netshoesbr/images/logo.png" alt="" />
                         </div>
-                        <div className='flex-1 relative m-8 max-w-lg'>
+                        <div className='flex-1  relative m-8 max-w-lg'>
                             <form>
                                 <input
                                     value={searchTerm}
@@ -65,14 +65,14 @@ export default function Header() {
                 </div>
             </section>
             <div>
-                {loading && <div>Carregando...</div>}
+                {loading && <div className="border-gray-300 h-10 w-10 animate-spin rounded-full border-8 border-t-blue-600" />}
                 {error && <div>{error}</div>}
                 {searchResults && searchResults.length > 0 ? (
                     searchResults.map((user) => (
                         <div key={user.id}>{user.username}</div>
                     ))
                 ) : (
-                    <div>{!loading && !error && 'Nenhum resultado encontrado'}</div>
+                    <div>{!loading && !error && ''}</div>
                 )}
             </div>
         </>
