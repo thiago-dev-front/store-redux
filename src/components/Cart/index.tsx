@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { increaseQuantity, decreaseQuantity, toggleCart } from '../../store/actions/cartActions';
+import { increaseQuantity, decreaseQuantity, toggleCart, clearCart } from '../../store/actions/cartActions';
 
 interface CartState {
     cart: {
@@ -35,6 +35,10 @@ const Cart = () => {
         dispatch(toggleCart());
     };
 
+    const handleClearCart = () => {
+        dispatch(clearCart())
+    }
+
     return (
         <div className={`absolute top-0 right-0 bg-white h-screen max-w-80 min-w-96 shadow ${isCartOpen ? 'block' : 'hidden'}`}>
             <h1>Carrinho</h1>
@@ -54,6 +58,7 @@ const Cart = () => {
                     ))}
                 </ul>
                 <button onClick={handleCloseCart}>Fechar Carrinho</button>
+                <button onClick={handleClearCart}>Limpar Carrinho</button>
             </div>
         </div>
     );

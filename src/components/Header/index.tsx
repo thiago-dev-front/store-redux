@@ -2,13 +2,26 @@ import { MagnifyingGlass, ShoppingCart } from '@phosphor-icons/react'
 import { ChangeEvent, useEffect, useState } from 'react'
 import api from '../../services/api'
 import { User } from '../../models/users';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Cart from '../Cart';
+import { toggleCart } from '../../store/actions/cartActions';
+
+interface CartState {
+    cart: {
+        isCartOpen: boolean;
+    };
+}
 
 export default function Header() {
+
+    const dispatch = useDispatch();
+
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [searchResults, setSearchResults] = useState<User[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
+
+    const isCartOpen = useSelector((state: CartState) => state.cart.isCartOpen);
 
     const totalItems = useSelector((state: { cart: { quantity: number } }) => state.cart.quantity);
 
@@ -29,6 +42,11 @@ export default function Header() {
         const term = e.target.value;
         setSearchTerm(term);
     }
+
+    const handleCartIconClick = () => {
+        dispatch(toggleCart());
+    };
+
 
     useEffect(() => {
         if (searchTerm.trim() !== '') {
@@ -60,7 +78,10 @@ export default function Header() {
                         <div>
                             <nav className='flex justify-center items-center space-x-6'>
                                 <a href="" className='text-white font-medium'>Login</a>
-                                <ShoppingCart color="white" size={24} />
+                                <div onClick={handleCartIconClick} className='cursor-pointer'>
+                                    <ShoppingCart color="white" size={24} />
+                                </div>
+                                {isCartOpen && <Cart />}
                                 <nav>
                                     {
                                         totalItems && totalItems > 0 ?
