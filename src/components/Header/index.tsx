@@ -4,8 +4,6 @@ import api from '../../services/api'
 import { User } from '../../models/users';
 import { useSelector } from 'react-redux';
 
-
-
 export default function Header() {
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [searchResults, setSearchResults] = useState<User[]>([]);
@@ -66,9 +64,9 @@ export default function Header() {
                                 <nav>
                                     {
                                         totalItems && totalItems > 0 ?
-                                        <div className='text-white'>{totalItems}</div> : null
+                                            <div className='text-white'>{totalItems}</div> : null
                                     }
-                                    
+
                                 </nav>
                             </nav>
                         </div>
