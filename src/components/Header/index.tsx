@@ -2,6 +2,7 @@ import { MagnifyingGlass, ShoppingCart } from '@phosphor-icons/react'
 import { ChangeEvent, useEffect, useState } from 'react'
 import api from '../../services/api'
 import { User } from '../../models/users';
+import { useSelector } from 'react-redux';
 
 
 
@@ -10,6 +11,9 @@ export default function Header() {
     const [searchResults, setSearchResults] = useState<User[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
+
+    const totalItems = useSelector((state: { cart: { quantity: number } }) => state.cart.quantity);
+
 
     async function fetchUsers(term: string) {
         try {
@@ -59,6 +63,13 @@ export default function Header() {
                             <nav className='flex justify-center items-center space-x-6'>
                                 <a href="" className='text-white font-medium'>Login</a>
                                 <ShoppingCart color="white" size={24} />
+                                <nav>
+                                    {
+                                        totalItems && totalItems > 0 ?
+                                        <div className='text-white'>{totalItems}</div> : null
+                                    }
+                                    
+                                </nav>
                             </nav>
                         </div>
                     </div>
