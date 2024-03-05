@@ -5,6 +5,15 @@ import { User } from '../../models/users';
 import { useDispatch, useSelector } from 'react-redux';
 import Cart from '../Cart';
 import { toggleCart } from '../../store/actions/cartActions';
+import {UserData} from "../../store/actions/userActions"
+
+
+interface UserState {
+    user: {
+        name: string,
+        login: string
+    }
+}
 
 interface CartState {
     cart: {
@@ -24,7 +33,13 @@ export default function Header() {
     const isCartOpen = useSelector((state: CartState) => state.cart.isCartOpen);
 
     const totalItems = useSelector((state: { cart: { quantity: number } }) => state.cart.quantity);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+    const user = useSelector(((state: UserState) => state.user))
+
+   
+
+    console.log('user', user)
 
     async function fetchUsers(term: string) {
         try {
@@ -47,6 +62,26 @@ export default function Header() {
         dispatch(toggleCart());
     };
 
+    
+    const isValidUser = (user: { name: string, email: string }) => {
+        return user.name === 'thiago' && user.email === 'thiago@dotz.com';
+    };
+
+    const handleUserLogin = () => {
+        const newUser = { name: 'thiago', email: 'thiago@dotz.com' };
+        if (isValidUser(newUser)) {
+            setIsLoggedIn(true);
+            dispatch(UserData(newUser)); 
+        } else {
+            setIsLoggedIn(false); 
+            console.log('dados inválidos');
+        }
+    };
+    
+    
+
+  
+    
 
     useEffect(() => {
         if (searchTerm.trim() !== '') {
@@ -77,7 +112,15 @@ export default function Header() {
                         </div>
                         <div>
                             <nav className='flex justify-center items-center space-x-6'>
-                                <a href="" className='text-white font-medium'>Login</a>
+
+                            <div>
+                            <div>
+      <button onClick={handleUserLogin} className='text-white font-medium'>
+        {isLoggedIn ? 'Sair' : 'Login'}
+      </button>
+    </div>
+                            </div>
+                                
                                 <div onClick={handleCartIconClick} className='cursor-pointer'>
                                     <ShoppingCart color="white" size={24} />
                                 </div>

@@ -11,8 +11,8 @@ interface CartState {
 
 interface CartItem {
     id: number;
-    name: string;
-    description: string;
+    title: string;
+    image?: string,
     price: number;
 }
 
@@ -50,8 +50,8 @@ const Cart = () => {
                 <ul>
                     {cartItems.map((item, index) => (
                         <li key={index}>
-                            <div>{item.name}</div>
-                            <div>{item.description}</div>
+                            <div>{item.title}</div>
+                            <img src={item.image} alt="" />
                             <button onClick={handleIncreaseQuantity}>+</button>
                             <button onClick={handleDecreaseQuantity}>-</button>
                         </li>

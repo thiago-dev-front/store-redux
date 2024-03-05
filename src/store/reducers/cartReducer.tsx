@@ -10,8 +10,8 @@ interface CartState {
 
 interface CartItem {
   id: number;
-  name: string;
-  description: string;
+  title: string;
+  image?: string;
   price: number;
 }
 
