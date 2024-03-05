@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { increaseQuantity, decreaseQuantity, toggleCart, clearCart } from '../../store/actions/cartActions';
+import ProductInfo from '../Product-info';
 
 interface CartState {
     cart: {
@@ -45,9 +46,12 @@ const Cart = () => {
             <div>Total Items: {totalItems}</div>
 
 
+
             <div>
                 <h1>Cart</h1>
                 <ul>
+                    <ProductInfo products={cartItems} handleIncreaseQuantity={handleIncreaseQuantity}
+                        handleDecreaseQuantity={handleDecreaseQuantity} showButtons={true} />
                     {cartItems.map((item, index) => (
                         <li key={index}>
                             <div>{item.title}</div>

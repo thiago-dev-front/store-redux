@@ -5,7 +5,7 @@ import { User } from '../../models/users';
 import { useDispatch, useSelector } from 'react-redux';
 import Cart from '../Cart';
 import { toggleCart } from '../../store/actions/cartActions';
-import {UserData} from "../../store/actions/userActions"
+import { UserData } from "../../store/actions/userActions"
 
 
 interface UserState {
@@ -37,7 +37,7 @@ export default function Header() {
 
     const user = useSelector(((state: UserState) => state.user))
 
-   
+
 
     console.log('user', user)
 
@@ -62,7 +62,7 @@ export default function Header() {
         dispatch(toggleCart());
     };
 
-    
+
     const isValidUser = (user: { name: string, email: string }) => {
         return user.name === 'thiago' && user.email === 'thiago@dotz.com';
     };
@@ -71,17 +71,17 @@ export default function Header() {
         const newUser = { name: 'thiago', email: 'thiago@dotz.com' };
         if (isValidUser(newUser)) {
             setIsLoggedIn(true);
-            dispatch(UserData(newUser)); 
+            dispatch(UserData(newUser));
         } else {
-            setIsLoggedIn(false); 
+            setIsLoggedIn(false);
             console.log('dados inválidos');
         }
     };
-    
-    
 
-  
-    
+
+
+
+
 
     useEffect(() => {
         if (searchTerm.trim() !== '') {
@@ -113,14 +113,14 @@ export default function Header() {
                         <div>
                             <nav className='flex justify-center items-center space-x-6'>
 
-                            <div>
-                            <div>
-      <button onClick={handleUserLogin} className='text-white font-medium'>
-        {isLoggedIn ? 'Sair' : 'Login'}
-      </button>
-    </div>
-                            </div>
-                                
+                                <div>
+                                    <div>
+                                        <button onClick={handleUserLogin} className='text-white font-medium'>
+                                            {isLoggedIn ? 'Sair' : 'Login'}
+                                        </button>
+                                    </div>
+                                </div>
+
                                 <div onClick={handleCartIconClick} className='cursor-pointer'>
                                     <ShoppingCart color="white" size={24} />
                                 </div>
