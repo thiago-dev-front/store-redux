@@ -1,27 +1,68 @@
+import { z } from "zod"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+
+
+const userLoginSchema = z.object({
+    email: z.string()
+        .nonempty('O email é obrigatório')
+        .email('Formato de e-mail inválido'),
+    password: z.string()
+        .min(6, 'A senha precisa de no minimo 6 caracteres')
+})
+
+type loginUserFormData = z.infer<typeof userLoginSchema>
+
 export default function Login() {
+    const { register, handleSubmit, formState: { errors } } = useForm<loginUserFormData>({
+        resolver: zodResolver(userLoginSchema)
+    })
+
+    function createUser(data: loginUserFormData) {
+        console.log(data)
+    }
+
     return (
-        <>
-            <div className="h-screen flex items-center justify-center overflow-hidden">
-                <div className="min-w-96 h-96 border rounded-md flex items-center justify-center">
-                 <div className="w-full p-6">
-                 <div>
-                        <h1 className="text-black text-center text-2xl font-bold">Login</h1>
-                    </div>
-                    <div>
-                        <form className="flex flex-col space-y-2" >
-                            <label className="text-black" htmlFor="name">Nome</label>
-                            <input className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"type="text" id="name" placeholder="Digite seu nome de usuário"/>
-                            <label className="text-black" htmlFor="email">E-mail</label>
-                            <input className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"  type="email" id="email" placeholder="Digite a sua senha"/>
-                        </form>
-                    </div>
-                    <p className="text-blue-700 text-right  m-3 font-medium text-sm hover:underline cursor-pointer">Esqueceu sua senha?</p>
-                    <div className="bg-blue-700 text-center font-bold p-3 rounded-md hover:bg-blue-600 cursor-pointer">
-                        <button className="text-white">Entrar</button>
-                    </div>  
-                 </div>
+        <div className="h-screen flex items-center justify-center overflow-hidden">
+            <div className="min-w-96 h-96 border rounded-md flex items-center justify-center">
+                <div className="w-full p-6">
+                    <h1 className="text-black text-center text-2xl font-bold">Login</h1>
+                    <form onSubmit={handleSubmit(createUser)} className="flex flex-col space-y-2">
+                        <label className="text-black" htmlFor="name">Email</label>
+                        <input
+                            className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
+                            type="email"
+                            id="email"
+                            {...register('email')}
+                            placeholder="Digite seu email"
+
+                        />
+                        {errors.email && <span className="text-red-600 text-sm">{errors.email.message}</span>}
+                        <label className="text-black" htmlFor="email">Senha</label>
+                        <input
+                            className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
+                            type="password"
+                            id="password"
+                            {...register('password')}
+                            placeholder="Digite a sua senha"
+
+                        />
+                        {errors.password && <span className="text-red-600 text-sm">{errors.password.message}</span>}
+
+                        <p className="text-blue-700 text-right m-3 font-medium text-sm hover:underline cursor-pointer">
+                            Esqueceu sua senha?
+                        </p>
+                        <div>
+                            <button
+                                type="submit"
+                                className="text-white bg-blue-700 text-center font-bold p-3 rounded-md hover:bg-blue-600 cursor-pointer w-full disabled:bg-red mt-3"
+                            >
+                                Entrar
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </>
-    )
+        </div>
+    );
 }
