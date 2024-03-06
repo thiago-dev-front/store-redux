@@ -1,8 +1,19 @@
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux";
+import { UserData } from "../../store/actions/userActions";
 
 
+interface UserState {
+    user: {
+      email: string,
+      password: string
+    }
+  }
+
+  
 const userLoginSchema = z.object({
     email: z.string()
         .nonempty('O email é obrigatório')
@@ -14,20 +25,33 @@ const userLoginSchema = z.object({
 type loginUserFormData = z.infer<typeof userLoginSchema>
 
 export default function Login() {
+    const dispatch = useDispatch();
+    const user = useSelector(((state: UserState) => state.user))
+
+    console.log('user', user)
     const { register, handleSubmit, formState: { errors } } = useForm<loginUserFormData>({
         resolver: zodResolver(userLoginSchema)
     })
 
-    function createUser(data: loginUserFormData) {
-        console.log(data)
-    }
+    const loginUser = (data: loginUserFormData) => {
+        const newUser = { email: 'thiago', password: 'thiago@dotz.com' };
+
+        const isValidUser = data.email === 'thiago.maia@dotz.com' && data.password === '123456'
+    
+        if (isValidUser) {
+          dispatch(UserData(newUser));
+        } else {
+          console.log('Credenciais inválidas');
+        }
+      };
+    
 
     return (
         <div className="h-screen flex items-center justify-center overflow-hidden">
             <div className="min-w-96 h-96 border rounded-md flex items-center justify-center">
                 <div className="w-full p-6">
                     <h1 className="text-black text-center text-2xl font-bold">Login</h1>
-                    <form onSubmit={handleSubmit(createUser)} className="flex flex-col space-y-2">
+                    <form onSubmit={handleSubmit(loginUser)} className="flex flex-col space-y-2">
                         <label className="text-black" htmlFor="name">Email</label>
                         <input
                             className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"

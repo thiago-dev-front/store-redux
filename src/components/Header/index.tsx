@@ -1,17 +1,17 @@
-import { MagnifyingGlass, ShoppingCart } from '@phosphor-icons/react'
+import { MagnifyingGlass, ShoppingCart , Star } from '@phosphor-icons/react'
 import { ChangeEvent, useEffect, useState } from 'react'
 import api from '../../services/api'
 import { User } from '../../models/users';
 import { useDispatch, useSelector } from 'react-redux';
 import Cart from '../Cart';
 import { toggleCart } from '../../store/actions/cartActions';
-import { UserData } from "../../store/actions/userActions"
+import { Link } from "react-router-dom";
 
 
 interface UserState {
     user: {
-        name: string,
-        login: string
+        email: string,
+        password: string
     }
 }
 
@@ -33,14 +33,13 @@ export default function Header() {
     const isCartOpen = useSelector((state: CartState) => state.cart.isCartOpen);
 
     const totalItems = useSelector((state: { cart: { quantity: number } }) => state.cart.quantity);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const user = useSelector(((state: UserState) => state.user))
 
 
 
     console.log('user', user)
-
+   
     async function fetchUsers(term: string) {
         try {
             setLoading(true);
@@ -62,27 +61,6 @@ export default function Header() {
         dispatch(toggleCart());
     };
 
-
-    const isValidUser = (user: { name: string, email: string }) => {
-        return user.name === 'thiago' && user.email === 'thiago@dotz.com';
-    };
-
-    const handleUserLogin = () => {
-        const newUser = { name: 'thiago', email: 'thiago@dotz.com' };
-        if (isValidUser(newUser)) {
-            setIsLoggedIn(true);
-            dispatch(UserData(newUser));
-        } else {
-            setIsLoggedIn(false);
-            console.log('dados inválidos');
-        }
-    };
-
-
-
-
-
-
     useEffect(() => {
         if (searchTerm.trim() !== '') {
             fetchUsers(searchTerm);
@@ -94,10 +72,11 @@ export default function Header() {
     return (
         <>
             <section className="bg-purple-800">
+            
                 <div className="min-w-[930px] max-w-5xl mx-auto">
                     <div className="flex justify-between items-center h-20 pr-6 pl-6">
                         <div className="flex-shrink-0">
-                            <img src="//static.netshoes.com.br/2.89.9/netshoesbr/images/logo.png" alt="" />
+                        <Link to="/"><img src="//static.netshoes.com.br/2.89.9/netshoesbr/images/logo.png" alt="" /></Link>
                         </div>
                         <div className='flex-1  relative m-8 max-w-lg'>
                             <form>
@@ -115,9 +94,13 @@ export default function Header() {
 
                                 <div>
                                     <div>
-                                        <button onClick={handleUserLogin} className='text-white font-medium'>
-                                            {isLoggedIn ? 'Sair' : 'Login'}
-                                        </button>
+                                        <div>
+                                            {user.email ? (
+                                                <p className='text-white'>Bem-vindo, {user.email}</p>
+                                            ) : (
+                                                <button><Link to="/login"><span className='text-white'>Login</span></Link></button>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
 
@@ -142,7 +125,7 @@ export default function Header() {
                 {error && <div>{error}</div>}
                 {searchResults && searchResults.length > 0 ? (
                     searchResults.map((user) => (
-                        <div key={user.id}>{user.username}</div>
+                        <div key={user.id}>{user.email}</div>
                     ))
                 ) : (
                     <div>{!loading && !error && ''}</div>

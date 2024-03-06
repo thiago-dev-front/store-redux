@@ -1,6 +1,6 @@
 interface UserPayload {
-    name: string,
-    email: string
+    email: string,
+    password: string
 }
 
 export const UserData = (userData: UserPayload) => ({

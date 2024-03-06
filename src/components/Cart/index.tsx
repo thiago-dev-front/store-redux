@@ -49,18 +49,10 @@ const Cart = () => {
 
             <div>
                 <h1>Cart</h1>
-                <ul>
+                <div>
                     <ProductInfo products={cartItems} handleIncreaseQuantity={handleIncreaseQuantity}
                         handleDecreaseQuantity={handleDecreaseQuantity} showButtons={true} />
-                    {cartItems.map((item, index) => (
-                        <li key={index}>
-                            <div>{item.title}</div>
-                            <img src={item.image} alt="" />
-                            <button onClick={handleIncreaseQuantity}>+</button>
-                            <button onClick={handleDecreaseQuantity}>-</button>
-                        </li>
-                    ))}
-                </ul>
+                </div>
                 <button onClick={handleCloseCart}>Fechar Carrinho</button>
                 <button onClick={handleClearCart}>Limpar Carrinho</button>
             </div>

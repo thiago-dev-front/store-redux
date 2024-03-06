@@ -1,25 +1,25 @@
 export interface UserLoginAction {
     type: 'USER_LOGIN';
     payload: {
-        name: string;
         email: string;
+        password: string;
     };
 }
 
 interface UserState {
-    name: string,
-    login: string
+    email: string,
+    password: string
 }
 
 const initialState: UserState = {
-    name: '',
-    login: ''
+    email: '',
+    password: ''
 }
 
 const userReducer = (state: UserState = initialState, action: UserLoginAction) => {
     switch(action.type) {
         case 'USER_LOGIN':
-        return {...state, name: action.payload.name, login: action.payload.email}
+        return {...state, email: action.payload.email, password: action.payload.password}
         default:
       return state;
     }
