@@ -1,7 +1,7 @@
 import {Star, Plus, Minus , Trash} from '@phosphor-icons/react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { clearCart } from '../../store/actions/cartActions';
-import { productItem } from '../../models/cartState';
+import { CartState, productItem } from '../../models/cartState';
 
 interface ProductInfoProps {
     products: productItem[];
@@ -20,15 +20,18 @@ function renderStars(rate: number) {
     return stars;
   }
 
-  
 
 export default function ProductInfo({ products, handleAddToCart, handleIncreaseQuantity, handleDecreaseQuantity, showButtons }: ProductInfoProps) {
     const dispatch = useDispatch();
     // const cartItems = useSelector((state: CartState) => state.cart.items);
 
+    const isCartOpen = useSelector((state: {cart: CartState}) => state.cart.isCartOpen);
+
     const handleClearCart = (productId: number) => {
         dispatch(clearCart(productId));
       }
+
+      console.log('state', isCartOpen)
 
     return (
         <>

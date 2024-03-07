@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, toggleCart } from '../../store/actions/cartActions';
+import { addToCart } from '../../store/actions/cartActions';
 import Cart from '../Cart';
 import ProductInfo from '../Product-info';
 import { CartState, productItem } from '../../models/cartState';
@@ -26,8 +26,7 @@ const Products = () => {
 
   const handleAddToCart = (product: productItem) => {
     dispatch(addToCart(product));
-    dispatch(toggleCart());
-  };
+    };
 
   return (
     <div>

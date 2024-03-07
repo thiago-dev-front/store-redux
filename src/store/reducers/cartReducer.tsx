@@ -39,6 +39,7 @@ const cartReducer = (state: CartState = initialState, action: CartAction) => {
         ...state,
         items: [...state.items, action.payload],
         totalPrice: state.totalPrice + action.payload.price,
+        isCartOpen: true,
       };
 
     case 'TOGGLE_CART':
@@ -54,7 +55,7 @@ const cartReducer = (state: CartState = initialState, action: CartAction) => {
         ...state,
 
         items: updatedItems,
-        totalPrice: updatedItems.reduce((acc, value) => acc + value.price, 0),
+        totalPrice: updatedItems.reduce((acc, value) => acc + value.price, 0)
       };
 
 

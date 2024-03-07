@@ -46,6 +46,11 @@ export default function Header() {
     }
 
     const handleCartIconClick = () => {
+        // Verifica se o carrinho está aberto e se houve uma ação de adicionar um item ao carrinho
+        if (!isCartOpen && totalItems > 0) {
+            // Não fecha o carrinho se houver itens nele
+            return;
+        }
         dispatch(toggleCart());
     };
 
