@@ -1,48 +1,27 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { increaseQuantity, decreaseQuantity, toggleCart} from '../../store/actions/cartActions';
 import ProductInfo from '../Product-info';
- 
 import { X } from "@phosphor-icons/react"
-interface CartState {
-    cart: {
-        quantity: number;
-        items: CartItem[];
-        isCartOpen: boolean;
-        totalPrice: number;
-    }
-}
-
-interface CartItem {
-    id: number;
-    title: string;
-    image?: string,
-    price: number;
-    rate: number
-}
+import { CartState } from '../../models/cartState';
 
 const Cart = () => {
     const dispatch = useDispatch();
-    const isCartOpen = useSelector((state: CartState) => state.cart.isCartOpen);
-    const totalItems = useSelector((state: CartState) => state.cart.quantity);
-    const cartItems = useSelector((state: CartState) => state.cart.items);
-    const calculateTotalPrice = useSelector((state: CartState) => state.cart.totalPrice);
+    const isCartOpen = useSelector((state: {cart: CartState}) => state.cart.isCartOpen);
+    const totalItems = useSelector((state: {cart: CartState}) => state.cart.quantity);
+    const cartItems = useSelector((state: {cart: CartState}) => state.cart.items);
+    const calculateTotalPrice = useSelector((state: {cart: CartState}) => state.cart.totalPrice);
 
-    
-   
     const handleIncreaseQuantity = (id: number, price: number) => {
         dispatch(increaseQuantity(id, price));
     };
 
     const handleDecreaseQuantity = (id: number, price: number) => {
         dispatch(decreaseQuantity(id, price));
-     
     };
 
     const handleCloseCart = () => {
         dispatch(toggleCart());
     };
-
-
 
     return (
         <div className={`absolute top-0 right-0 p-4 bg-white h-screen max-w-80 min-w-96 shadow ${isCartOpen ? 'block' : 'hidden'}`}>

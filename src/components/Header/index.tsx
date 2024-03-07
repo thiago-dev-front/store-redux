@@ -6,20 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Cart from '../Cart';
 import { toggleCart } from '../../store/actions/cartActions';
 import { Link } from "react-router-dom";
-
-
-interface UserState {
-    user: {
-        email: string,
-        password: string
-    }
-}
-
-interface CartState {
-    cart: {
-        isCartOpen: boolean;
-    };
-}
+import { CartState } from '../../models/cartState';
 
 export default function Header() {
 
@@ -30,17 +17,17 @@ export default function Header() {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
 
-    const isCartOpen = useSelector((state: CartState) => state.cart.isCartOpen);
+    const isCartOpen = useSelector((state: { cart: CartState }) => state.cart.isCartOpen);
 
-    const totalItems = useSelector((state: { cart: { quantity: number } }) => state.cart.quantity);
-
+    const totalItems = useSelector((state: { cart: CartState }) => state.cart.quantity);
   
-    const user = useSelector(((state: UserState) => state.user))
+    const user = useSelector(((state: {user: User}) => state.user))
 
 
-
-    console.log('user', user)
-   
+    if(user) {
+        console.log('user', user.email)
+    }
+    
     async function fetchUsers(term: string) {
         try {
             setLoading(true);
