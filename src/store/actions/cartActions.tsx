@@ -1,10 +1,4 @@
-
-interface CartItem {
-  id: number;
-  title: string;
-  image?: string;
-  price: number;
-}
+import { productItem } from "../../models/cartState";
 
 export const increaseQuantity = (id: number, price: number) => ({
   type: 'INCREASE_QUANTITY',
@@ -16,7 +10,7 @@ export const decreaseQuantity = (id: number, price: number) => ({
   payload: { id, price },
 });
 
-export const addToCart = (product: CartItem) => ({
+export const addToCart = (product: productItem) => ({
   type: 'ADD_TO_CART',
   payload: product
 });

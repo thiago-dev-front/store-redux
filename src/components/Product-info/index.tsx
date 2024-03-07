@@ -1,18 +1,11 @@
 import {Star, Plus, Minus , Trash} from '@phosphor-icons/react'
 import { useDispatch } from 'react-redux';
 import { clearCart } from '../../store/actions/cartActions';
-
-interface CartItem {
-    id: number;
-    title: string;
-    image?: string;
-    price: number;
-    rate: number
-}
+import { productItem } from '../../models/cartState';
 
 interface ProductInfoProps {
-    products: CartItem[];
-    handleAddToCart?: (product: CartItem) => void;
+    products: productItem[];
+    handleAddToCart?: (product: productItem) => void;
     handleIncreaseQuantity?: (id: number, price: number) => void;
     handleDecreaseQuantity?: (id: number, price: number) => void;
     showButtons: boolean;

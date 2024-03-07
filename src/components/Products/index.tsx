@@ -2,34 +2,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, toggleCart } from '../../store/actions/cartActions';
 import Cart from '../Cart';
 import ProductInfo from '../Product-info';
-
-interface CartState {
-  cart: {
-    isCartOpen: boolean;
-  };
-}
-
-// interface UserState {
-//   user: {
-//     email: string,
-//     password: string
-//   }
-// }
-
-interface CartItem {
-  id: number;
-  title: string;
-  image?: string;
-  price: number;
-}
+import { CartState, productItem } from '../../models/cartState';
 
 
 const Products = () => {
   const dispatch = useDispatch();
-  // const user = useSelector(((state: UserState) => state.user))
-
-  const isCartOpen = useSelector((state: CartState) => state.cart.isCartOpen);
-
+  const isCartOpen = useSelector((state: CartState) => state.isCartOpen);
 
   const simulatedProducts = [
     { id: 1, title: 'Fone X', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', price: 100 , rate: 5 },
@@ -46,7 +24,7 @@ const Products = () => {
     { id: 12, title: 'Faixa Mestre', image: 'https://images.unsplash.com/photo-1634283715079-d91bbed0ece0?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', price: 1200, rate: 4 },
   ];
 
-  const handleAddToCart = (product: CartItem) => {
+  const handleAddToCart = (product: productItem) => {
     dispatch(addToCart(product));
     dispatch(toggleCart());
   };

@@ -1,9 +1,7 @@
-interface UserPayload {
-    email: string,
-    password: string
-}
 
-export const UserData = (userData: UserPayload) => ({
+import {User} from "../../models/users"
+
+export const UserData = (userData: User) => ({
     type: 'USER_LOGIN',
     payload: userData
 })

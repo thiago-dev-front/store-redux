@@ -1,13 +1,9 @@
-interface CartItem {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-}
+import { productItem } from "../../models/cartState";
+
 
 export interface AddToCartAction {
     type: 'ADD_TO_CART';
-    payload: CartItem;
+    payload: productItem;
 }
 
 export interface IncreaseQuantityAction {

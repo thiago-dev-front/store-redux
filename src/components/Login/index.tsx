@@ -5,16 +5,8 @@ import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux";
 import { UserData } from "../../store/actions/userActions";
 import { useState } from "react";
+import { User } from "../../models/users";
 
-
-interface UserState {
-    user: {
-      email: string,
-      password: string
-    }
-  }
-
-  
 const userLoginSchema = z.object({
     email: z.string()
         .nonempty('O email é obrigatório')
@@ -27,11 +19,11 @@ type loginUserFormData = z.infer<typeof userLoginSchema>
 
 export default function Login() {
     const dispatch = useDispatch();
-    const user = useSelector(((state: UserState) => state.user))
+    const user = useSelector(((state: User) => state.email))
     const [errorMessage, setErrorMessage] = useState<string>('');
 
     console.log('user', user)
-    const { register, handleSubmit, formState: { errors , isValid} } = useForm<loginUserFormData>({
+    const { register, handleSubmit, formState: { errors, isValid } } = useForm<loginUserFormData>({
         resolver: zodResolver(userLoginSchema)
     })
 
@@ -39,14 +31,13 @@ export default function Login() {
         const newUser = { email: 'thiago', password: 'thiago@dotz.com' };
 
         const isValidUser = data.email === 'thiago.maia@dotz.com' && data.password === '123456'
-    
+
         if (isValidUser) {
-          dispatch(UserData(newUser));
+            dispatch(UserData(newUser));
         } else {
             setErrorMessage('Usuário ou Senha inválidos!');
         }
-      };
-    
+    };
 
     return (
         <div className="h-screen flex items-center justify-center overflow-hidden">
@@ -89,7 +80,6 @@ export default function Login() {
                         </div>
                     </form>
                     {errors && errorMessage && <div className="text-red-600 text-sm text-center mt-3">{errorMessage}</div>}
-
                 </div>
             </div>
         </div>
