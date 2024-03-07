@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux";
 import { UserData } from "../../store/actions/userActions";
+import { useState } from "react";
 
 
 interface UserState {
@@ -27,9 +28,10 @@ type loginUserFormData = z.infer<typeof userLoginSchema>
 export default function Login() {
     const dispatch = useDispatch();
     const user = useSelector(((state: UserState) => state.user))
+    const [errorMessage, setErrorMessage] = useState<string>('');
 
     console.log('user', user)
-    const { register, handleSubmit, formState: { errors } } = useForm<loginUserFormData>({
+    const { register, handleSubmit, formState: { errors , isValid} } = useForm<loginUserFormData>({
         resolver: zodResolver(userLoginSchema)
     })
 
@@ -41,7 +43,7 @@ export default function Login() {
         if (isValidUser) {
           dispatch(UserData(newUser));
         } else {
-          console.log('Credenciais inválidas');
+            setErrorMessage('Usuário ou Senha inválidos!');
         }
       };
     
@@ -79,12 +81,15 @@ export default function Login() {
                         <div>
                             <button
                                 type="submit"
-                                className="text-white bg-blue-700 text-center font-bold p-3 rounded-md hover:bg-blue-600 cursor-pointer w-full disabled:bg-red mt-3"
+                                className="text-white bg-blue-700 text-center font-bold p-3 rounded-md hover:bg-blue-600 cursor-pointer w-full disabled:bg-gray-300 disabled:bg-opacity-50 disabled:cursor-not-allowed mt-3"
+                                disabled={!isValid}
                             >
                                 Entrar
                             </button>
                         </div>
                     </form>
+                    {errors && errorMessage && <div className="text-red-600 text-sm text-center mt-3">{errorMessage}</div>}
+
                 </div>
             </div>
         </div>

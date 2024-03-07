@@ -13,8 +13,8 @@ interface CartItem {
 interface ProductInfoProps {
     products: CartItem[];
     handleAddToCart?: (product: CartItem) => void;
-    handleIncreaseQuantity?: (id: number) => void;
-    handleDecreaseQuantity?: (id: number) => void;
+    handleIncreaseQuantity?: (id: number, price: number) => void;
+    handleDecreaseQuantity?: (id: number, price: number) => void;
     showButtons: boolean;
 }
 
@@ -55,12 +55,13 @@ export default function ProductInfo({ products, handleAddToCart, handleIncreaseQ
                         </figcaption>
                         {showButtons && (
                             <>
-                                <button onClick={() => handleIncreaseQuantity && handleIncreaseQuantity(product.id)}><Plus size={32} /></button>
-                                <button onClick={() => handleDecreaseQuantity && handleDecreaseQuantity(product.id)}><Minus size={32} /></button>
+                                <button onClick={() => handleIncreaseQuantity && handleIncreaseQuantity(product.id, product.price)}><Plus size={32} /></button>
+                                <button onClick={() => handleDecreaseQuantity && handleDecreaseQuantity(product.id, product.price)}><Minus size={32} /></button>
                             </>
                         )}
                     </figure>
-                    <button onClick={() => handleClearCart(product.id)}><Trash size={32} /></button>
+                    {showButtons && <button onClick={() => handleClearCart(product.id)}><Trash size={32} /></button>}
+                    
                 </div>
             ))}
         </>

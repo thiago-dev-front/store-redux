@@ -12,10 +12,12 @@ export interface AddToCartAction {
 
 export interface IncreaseQuantityAction {
     type: 'INCREASE_QUANTITY';
+    payload: { id: number, price: number },
 }
 
 export interface DecreaseQuantityAction {
     type: 'DECREASE_QUANTITY';
+    payload: { id: number, price: number },
 }
 
 export interface ClearCartAction {

@@ -6,12 +6,14 @@ interface CartItem {
   price: number;
 }
 
-export const increaseQuantity = () => ({
+export const increaseQuantity = (id: number, price: number) => ({
   type: 'INCREASE_QUANTITY',
+  payload: { id, price },
 });
 
-export const decreaseQuantity = () => ({
+export const decreaseQuantity = (id: number, price: number) => ({
   type: 'DECREASE_QUANTITY',
+  payload: { id, price },
 });
 
 export const addToCart = (product: CartItem) => ({
@@ -26,8 +28,4 @@ export const clearCart = (productId: number) => ({
 
 export const toggleCart = () => ({
   type: 'TOGGLE_CART',
-});
-
-export const totalPrice = () => ({
-  type: 'CALCULATE_TOTAL_PRICE',
 });
