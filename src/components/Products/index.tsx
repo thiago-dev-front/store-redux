@@ -49,7 +49,7 @@ const Products = () => {
   const handleAddToCart = (product: CartItem) => {
     dispatch(addToCart(product));
     dispatch(toggleCart());
-    // dispatch(totalPrice())
+    dispatch(totalPrice())
   };
 
   return (
