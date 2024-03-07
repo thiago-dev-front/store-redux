@@ -6,6 +6,7 @@ interface CartState {
   quantity: number;
   items: CartItem[];
   isCartOpen: boolean;
+  totalPrice: number,
 }
 
 interface CartItem {
@@ -19,6 +20,7 @@ const initialState: CartState = {
   quantity: 0,
   items: [],
   isCartOpen: false,
+  totalPrice: 0,
 };
 
 const cartReducer = (state: CartState = initialState, action: CartAction) => {
@@ -32,6 +34,15 @@ const cartReducer = (state: CartState = initialState, action: CartAction) => {
         ...state,
         items: [...state.items, action.payload]
       };
+
+      case 'CALCULATE_TOTAL_PRICE':
+        const calculatedTotalPrice = state.items.reduce((acc, value) => {
+          return acc + value.price;
+        }, 0);
+        return {
+          ...state,
+          totalPrice: calculatedTotalPrice,
+        };
     case 'TOGGLE_CART':
       return {
         ...state,
@@ -39,11 +50,15 @@ const cartReducer = (state: CartState = initialState, action: CartAction) => {
       };
 
     case 'CLEAR_CART':
+      const productIdToRemove = action.payload;
+      const updatedItems = state.items.filter(item => item.id !== productIdToRemove);
       return {
         ...state,
-        quantity: 0,
-        items: []
+
+        items: updatedItems
       };
+      
+      
 
     default:
       return state;

@@ -19,10 +19,15 @@ export const addToCart = (product: CartItem) => ({
   payload: product
 });
 
-export const clearCart = () => ({
-  type: 'CLEAR_CART'
+export const clearCart = (productId: number) => ({
+  type: 'CLEAR_CART',
+  payload: productId
 });
 
 export const toggleCart = () => ({
   type: 'TOGGLE_CART',
+});
+
+export const totalPrice = () => ({
+  type: 'CALCULATE_TOTAL_PRICE',
 });

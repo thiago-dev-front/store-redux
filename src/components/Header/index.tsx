@@ -34,6 +34,7 @@ export default function Header() {
 
     const totalItems = useSelector((state: { cart: { quantity: number } }) => state.cart.quantity);
 
+  
     const user = useSelector(((state: UserState) => state.user))
 
 

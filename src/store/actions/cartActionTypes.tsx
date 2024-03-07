@@ -20,10 +20,15 @@ export interface DecreaseQuantityAction {
 
 export interface ClearCartAction {
     type: 'CLEAR_CART';
+    payload: number;
 }
 
 export interface ToggleCartAction {
     type: 'TOGGLE_CART';
 }
 
-export type CartAction = AddToCartAction | IncreaseQuantityAction | DecreaseQuantityAction | ClearCartAction | ToggleCartAction;
+export interface totalCartPrice {
+    type: 'CALCULATE_TOTAL_PRICE';
+}
+
+export type CartAction = AddToCartAction | IncreaseQuantityAction | DecreaseQuantityAction | ClearCartAction | ToggleCartAction | totalCartPrice;

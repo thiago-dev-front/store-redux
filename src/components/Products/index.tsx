@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, toggleCart } from '../../store/actions/cartActions';
+import { addToCart, toggleCart, totalPrice } from '../../store/actions/cartActions';
 import Cart from '../Cart';
 import ProductInfo from '../Product-info';
 
@@ -49,6 +49,7 @@ const Products = () => {
   const handleAddToCart = (product: CartItem) => {
     dispatch(addToCart(product));
     dispatch(toggleCart());
+    // dispatch(totalPrice())
   };
 
   return (
