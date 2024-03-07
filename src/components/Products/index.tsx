@@ -9,12 +9,12 @@ interface CartState {
   };
 }
 
-interface UserState {
-  user: {
-    email: string,
-    password: string
-  }
-}
+// interface UserState {
+//   user: {
+//     email: string,
+//     password: string
+//   }
+// }
 
 interface CartItem {
   id: number;
@@ -26,7 +26,7 @@ interface CartItem {
 
 const Products = () => {
   const dispatch = useDispatch();
-  const user = useSelector(((state: UserState) => state.user))
+  // const user = useSelector(((state: UserState) => state.user))
 
   const isCartOpen = useSelector((state: CartState) => state.cart.isCartOpen);
 

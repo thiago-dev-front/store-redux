@@ -1,4 +1,4 @@
-import { MagnifyingGlass, ShoppingCart , Star } from '@phosphor-icons/react'
+import { MagnifyingGlass, ShoppingCart} from '@phosphor-icons/react'
 import { ChangeEvent, useEffect, useState } from 'react'
 import api from '../../services/api'
 import { User } from '../../models/users';

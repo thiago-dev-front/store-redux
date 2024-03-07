@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { increaseQuantity, decreaseQuantity, toggleCart, clearCart } from '../../store/actions/cartActions';
 import ProductInfo from '../Product-info';
-
+ 
+import { X , Trash} from "@phosphor-icons/react"
 interface CartState {
     cart: {
         quantity: number;
@@ -15,6 +16,7 @@ interface CartItem {
     title: string;
     image?: string,
     price: number;
+    rate: number
 }
 
 const Cart = () => {
@@ -41,20 +43,17 @@ const Cart = () => {
     }
 
     return (
-        <div className={`absolute top-0 right-0 bg-white h-screen max-w-80 min-w-96 shadow ${isCartOpen ? 'block' : 'hidden'}`}>
-            <h1>Carrinho</h1>
-            <div>Total Items: {totalItems}</div>
-
-
+        <div className={`absolute top-0 right-0 p-4 bg-white h-screen max-w-80 min-w-96 shadow ${isCartOpen ? 'block' : 'hidden'}`}>
+            <h1 className='text-center font-bold'>Resumo da compra</h1>
+            <div className='font-bold'>Subtotal ({totalItems})</div>
 
             <div>
-                <h1>Cart</h1>
                 <div>
                     <ProductInfo products={cartItems} handleIncreaseQuantity={handleIncreaseQuantity}
                         handleDecreaseQuantity={handleDecreaseQuantity} showButtons={true} />
                 </div>
-                <button onClick={handleCloseCart}>Fechar Carrinho</button>
-                <button onClick={handleClearCart}>Limpar Carrinho</button>
+                <button onClick={handleCloseCart} className='absolute top-0 right-0 mt-4 mr-4'><X size={32} /></button>
+                <button onClick={handleClearCart}><Trash size={32} /></button>
             </div>
         </div>
     );

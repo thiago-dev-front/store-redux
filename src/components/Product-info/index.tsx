@@ -1,4 +1,4 @@
-import { Divide, Star ,  Stairs} from '@phosphor-icons/react'
+import {Star, Plus, Minus} from '@phosphor-icons/react'
 
 interface CartItem {
     id: number;
@@ -36,15 +36,16 @@ export default function ProductInfo({ products, handleAddToCart, handleIncreaseQ
                             <div className="text-lg font-bold">{product.title}</div>
                             <div className="text-lg font-bold">R${product.price}</div>
                             <div className='flex'>
-                            {renderStars(product.rate)} 
+                            {!showButtons &&  renderStars(product.rate)} 
                             </div>
-                            <button className="bg-orange-500 hover:bg-orange-600 text-white p-2 w-full rounded-lg "
-                            onClick={() => handleAddToCart && handleAddToCart(product)}>Adicionar ao Carrinho</button>
+                            {!showButtons &&  <button className="bg-orange-500 hover:bg-orange-600 text-white p-2 w-full rounded-lg "
+                            onClick={() => handleAddToCart && handleAddToCart(product)}>Adicionar ao Carrinho</button>}
+                           
                         </figcaption>
                         {showButtons && (
                             <>
-                                <button onClick={() => handleIncreaseQuantity && handleIncreaseQuantity(product.id)}>+</button>
-                                <button onClick={() => handleDecreaseQuantity && handleDecreaseQuantity(product.id)}>-</button>
+                                <button onClick={() => handleIncreaseQuantity && handleIncreaseQuantity(product.id)}><Plus size={32} /></button>
+                                <button onClick={() => handleDecreaseQuantity && handleDecreaseQuantity(product.id)}><Minus size={32} /></button>
                             </>
                         )}
                     </figure>
