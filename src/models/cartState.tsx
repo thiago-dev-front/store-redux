@@ -9,6 +9,7 @@ export interface CartState {
     id: number;
     title: string;
     image?: string;
+    quantityItem: number;
     price: number;
     rate: number
   }

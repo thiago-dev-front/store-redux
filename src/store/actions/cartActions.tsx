@@ -15,9 +15,9 @@ export const addToCart = (product: productItem) => ({
   payload: product
 });
 
-export const clearCart = (productId: number) => ({
+export const clearCart = (productIds: number) => ({
   type: 'CLEAR_CART',
-  payload: productId
+  payload: productIds
 });
 
 export const toggleCart = () => ({

@@ -27,8 +27,8 @@ export default function ProductInfo({ products, handleAddToCart, handleIncreaseQ
 
     const isCartOpen = useSelector((state: {cart: CartState}) => state.cart.isCartOpen);
 
-    const handleClearCart = (productId: number) => {
-        dispatch(clearCart(productId));
+    const handleClearCart = (productIds: number) => {
+        dispatch(clearCart(productIds));
       }
 
       console.log('state', isCartOpen)
@@ -52,6 +52,8 @@ export default function ProductInfo({ products, handleAddToCart, handleIncreaseQ
                         {showButtons && (
                             <>
                                 <button onClick={() => handleIncreaseQuantity && handleIncreaseQuantity(product.id, product.price)}><Plus size={32} /></button>
+                                <div>{product.quantityItem}</div> 
+
                                 <button onClick={() => handleDecreaseQuantity && handleDecreaseQuantity(product.id, product.price)}><Minus size={32} /></button>
                             </>
                         )}

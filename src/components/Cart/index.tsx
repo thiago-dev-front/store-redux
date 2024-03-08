@@ -7,8 +7,10 @@ import { CartState } from '../../models/cartState';
 const Cart = () => {
     const dispatch = useDispatch();
     const isCartOpen = useSelector((state: {cart: CartState}) => state.cart.isCartOpen);
-    const totalItems = useSelector((state: {cart: CartState}) => state.cart.quantity);
+    
     const cartItems = useSelector((state: {cart: CartState}) => state.cart.items);
+    const totalItems = cartItems.reduce((total, item) => total + item.quantityItem, 0);
+
     const calculateTotalPrice = useSelector((state: {cart: CartState}) => state.cart.totalPrice);
 
     const handleIncreaseQuantity = (id: number, price: number) => {
