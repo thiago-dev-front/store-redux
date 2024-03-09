@@ -1,7 +1,8 @@
-import { Star, Plus, Minus, Trash } from '@phosphor-icons/react'
+import { Plus, Minus, Trash } from '@phosphor-icons/react'
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCart } from '../../store/actions/cartActions';
 import { CartState, productItem } from '../../models/cartState';
+import { FaStar } from 'react-icons/fa';
 
 interface ProductInfoProps {
     products: productItem[];
@@ -15,7 +16,7 @@ interface ProductInfoProps {
 function renderStars(rate: number) {
     const stars = [];
     for (let i = 0; i < rate; i++) {
-        stars.push(<Star key={i} size={20} color="yellow" />);
+        stars.push(<FaStar color='#facc15'/>);
     }
     return stars;
 }
