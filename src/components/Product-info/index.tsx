@@ -37,7 +37,7 @@ export default function ProductInfo({ products, handleAddToCart, handleIncreaseQ
     return (
         <>
             {products.map((product) => (
-                <div key={product.id} className={`relative border rounded-md mb-4 ${isCartPage ? 'rounded' : 'rounded-t-2xl'}`}>
+                <div key={product.id} className={`relative border rounded-md mb-4 min-w-full max-w-[244px] ${isCartPage ? 'rounded' : 'rounded-t-2xl'}`}>
                     <figure>
                         <div className={`${isCartPage ? 'flex' : 'inherit'}`}>
                             <img className={` ${isCartPage ? 'min-w-[176px] max-w-[176px] max-h-[134px] object-cover p-4' : 'min-w-full h-40 object-cover rounded-t-2xl'}`}

@@ -43,7 +43,7 @@ export default function Login() {
         <div className="h-screen flex items-center justify-center overflow-hidden">
             <div className="min-w-96 h-96 border rounded-md flex items-center justify-center">
                 <div className="w-full p-6">
-                    <h1 className="text-black text-center text-2xl font-bold">Login</h1>
+                    <h1 className="text-blue-700 text-center text-2xl font-bold">Login</h1>
                     <form onSubmit={handleSubmit(loginUser)} className="flex flex-col space-y-2">
                         <label className="text-black" htmlFor="name">Email</label>
                         <input

@@ -31,7 +31,7 @@ const Cart = () => {
         <div className={`absolute top-0 right-0 p-6 bg-white h-screen max-w-80 min-w-96 shadow z-10 ${isCartOpen ? 'block' : 'hidden'}`}>
         {cartItems.length > 0 ? (
           <>
-            <h1 className='text-xl font-bold text-violet-900'>Resumo da compra</h1>
+            <h1 className='text-xl font-bold text-violet-900  sm:text-left text-center'>Resumo da compra</h1>
             <div className='flex justify-between p-3 border-b mb-4'>
               <div className='font-bold text-gray-500'>Subtotal ({`${totalItems} ${totalItems !== 1 ? 'itens' : 'item'}`})</div>
               <div className='font-bold'>Valor total  <strong>R${calculateTotalPrice}</strong></div>

@@ -30,9 +30,9 @@ const Products = () => {
 
   return (
     <div>
-      <div className="min-w-[930px] max-w-5xl mx-auto m-10">
-        <div className='grid grid-cols-4 gap-4'>
-          <ProductInfo products={simulatedProducts} handleAddToCart={handleAddToCart} showButtons={false} />
+      <div className="lg:min-w-[930px] max-w-5xl mx-auto m-10">
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center px-4'>
+          <ProductInfo products={simulatedProducts} handleAddToCart={handleAddToCart}  isCartPage={false} />
         </div>
       </div>
       {isCartOpen && <Cart />}
