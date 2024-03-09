@@ -11,7 +11,7 @@ const Cart = () => {
     const totalItems = cartItems.reduce((total, item) => total + item.quantityItem, 0);
     const calculateTotalPrice = useSelector((state: { cart: CartState }) => state.cart.totalPrice);
 
-    console.log('isCartOpen', isCartOpen)
+    console.log('totalItems', totalItems)
 
     const handleIncreaseQuantity = (id: number, price: number) => {
         dispatch(increaseQuantity(id, price));
@@ -22,7 +22,9 @@ const Cart = () => {
     };
 
     const handleCloseCart = () => {
-        dispatch(toggleCart());
+        if(cartItems.length > 0) {
+          dispatch(toggleCart());
+        }
     };
 
     return (

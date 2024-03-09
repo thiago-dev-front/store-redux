@@ -1,4 +1,4 @@
-import { MagnifyingGlass, ShoppingCart} from '@phosphor-icons/react'
+import { MagnifyingGlass, ShoppingCart } from '@phosphor-icons/react'
 import { ChangeEvent, useEffect, useState } from 'react'
 import api from '../../services/api'
 import { User } from '../../models/users';
@@ -18,16 +18,15 @@ export default function Header() {
     const [error, setError] = useState<string>('');
 
     const isCartOpen = useSelector((state: { cart: CartState }) => state.cart.isCartOpen);
+    const cartItems = useSelector((state: { cart: CartState }) => state.cart.items);
+    const totalItems = cartItems.reduce((total, item) => total + item.quantityItem, 0);
+    const user = useSelector(((state: { user: User }) => state.user))
 
-    const totalItems = useSelector((state: { cart: CartState }) => state.cart.quantity);
-  
-    const user = useSelector(((state: {user: User}) => state.user))
 
-
-    if(user) {
+    if (user) {
         console.log('user', user.email)
     }
-    
+
     async function fetchUsers(term: string) {
         try {
             setLoading(true);
@@ -46,9 +45,7 @@ export default function Header() {
     }
 
     const handleCartIconClick = () => {
-        // Verifica se o carrinho está aberto e se houve uma ação de adicionar um item ao carrinho
-        if (!isCartOpen && totalItems > 0) {
-            // Não fecha o carrinho se houver itens nele
+        if (isCartOpen && totalItems > 0) {
             return;
         }
         dispatch(toggleCart());
@@ -62,14 +59,14 @@ export default function Header() {
         }
     }, [searchTerm]);
 
+    console.log('totalItems', totalItems)
     return (
         <>
             <section className="bg-purple-800">
-            
                 <div className="min-w-[930px] max-w-5xl mx-auto">
                     <div className="flex justify-between items-center h-20 pr-6 pl-6">
                         <div className="flex-shrink-0">
-                        <Link to="/"><img src="//static.netshoes.com.br/2.89.9/netshoesbr/images/logo.png" alt="" /></Link>
+                            <Link to="/"><img src="//static.netshoes.com.br/2.89.9/netshoesbr/images/logo.png" alt="" /></Link>
                         </div>
                         <div className='flex-1  relative m-8 max-w-lg'>
                             <form>
@@ -97,17 +94,19 @@ export default function Header() {
                                     </div>
                                 </div>
 
-                                <div onClick={handleCartIconClick} className='cursor-pointer'>
-                                    <ShoppingCart color="white" size={24} />
-                                </div>
-                                {isCartOpen && <Cart />}
-                                <nav>
+                                <div onClick={handleCartIconClick} className='flex cursor-pointer'>
+                                    <ShoppingCart color="white" size={28} />
+                                    {isCartOpen && <Cart />}
                                     {
+
                                         totalItems && totalItems > 0 ?
-                                            <div className='text-white'>{totalItems}</div> : null
+                                            <div className='bg-orange-500 w-4 h-4 rounded-full flex items-center justify-center relative right-2 text-xs font-bold p-2'>
+                                                <div className='text-white'>{totalItems}</div>
+                                            </div> : null
                                     }
 
-                                </nav>
+                                </div>
+
                             </nav>
                         </div>
                     </div>
